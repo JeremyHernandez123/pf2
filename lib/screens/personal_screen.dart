@@ -15,6 +15,8 @@ class _PersonalScreenState extends State<PersonalScreen> {
       appBar: AppBar(
         title: Text('${Persona.defaults().lastName} - Edit Profile'),
       ),
+
+      
     );
   }
 }
