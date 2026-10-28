@@ -97,4 +97,22 @@ class _PersonalScreenState extends State<PersonalScreen> {
       },
     ); 
   }
+
+  Widget _createPassword() {
+    return TextField(
+      obscureText: true,
+      decoration: InputDecoration(
+        hintText: 'Password',
+        labelText: 'Password',
+        suffixIcon: Icon(Icons.lock_open),
+        icon: Icon(Icons.lock),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(20.0)
+        )     
+      ),
+      onChanged: (valor){
+        
+      },
+    ); 
+  }
 }
