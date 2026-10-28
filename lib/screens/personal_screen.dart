@@ -10,7 +10,7 @@ class PersonalScreen extends StatefulWidget {
 
 class _PersonalScreenState extends State<PersonalScreen> {
   @override
-  String _firstname = ""; 
+  String _firstName = ""; 
   String _lastName = ""; 
   String _emailAdress = "" ; 
   String _dateOfBirth = "";  
@@ -27,6 +27,8 @@ class _PersonalScreenState extends State<PersonalScreen> {
         children: [
           _createInputFirstName(), 
           Divider(),
+          _createInputLastName(), 
+
 
         ],
       ),
@@ -37,15 +39,39 @@ class _PersonalScreenState extends State<PersonalScreen> {
     return TextField(
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
-        hintText: 'Nom de l\'usuari',
+        hintText: 'Nom',
         labelText: 'Nom',
-        helperText: 'Posa el teu nom',
         suffixIcon: Icon(Icons.accessibility),
         icon: Icon(Icons.account_circle),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20.0)
         )
       ),
+      onChanged: (valor) {
+        setState(() {
+          _firstName = valor; 
+        });
+      },
+    ); 
+  }
+
+  Widget _createInputLastName() {
+    return TextField(
+      textCapitalization: TextCapitalization.sentences,
+      decoration: InputDecoration(
+        hintText: 'Cognom',
+        labelText: 'Cognom',
+        suffixIcon: Icon(Icons.accessibility),
+        icon: Icon(Icons.account_circle),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(20.0)
+        )
+      ),
+      onChanged: (valor) {
+        setState(() {
+          _lastName = valor; 
+        });
+      },
     ); 
   }
 }
