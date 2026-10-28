@@ -174,7 +174,8 @@ class _PersonalScreenState extends State<PersonalScreen> {
               emailAdress: _emailAdress, 
               password: _password,
               dateOfBirth: DateTime.parse(_dateOfBirth.toString())
-          ));
+            ),
+          );
         }
       }, 
       child: Text('Guardar i tornar')

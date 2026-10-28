@@ -35,13 +35,16 @@ class _HomePageState extends State<HomePage> {
           SizedBox(height: 30),
           ElevatedButton(
             onPressed: () {
-              Navigator.push(
+              final result = Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => PersonalScreen())
               );
-              setState(() {
-                
-              });
+              if(result != null && result is Persona) {
+                setState(() {
+                  
+                });
+              }
+              
             }, 
             child: Text('Edit Profile')
           ), 
