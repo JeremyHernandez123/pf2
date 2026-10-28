@@ -14,6 +14,7 @@ class _PersonalScreenState extends State<PersonalScreen> {
   String _lastName = ""; 
   String _emailAdress = "" ; 
   String _dateOfBirth = "";  
+  final TextEditingController _inputFieldDataController = TextEditingController();
 
 
   @override
@@ -23,7 +24,7 @@ class _PersonalScreenState extends State<PersonalScreen> {
         title: Text('${Persona.defaults().lastName} - Edit Profile'),
       ),
       body: ListView(
-        padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
+        padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 200),
         children: [
           _createInputFirstName(), 
           Divider(),
@@ -32,7 +33,8 @@ class _PersonalScreenState extends State<PersonalScreen> {
           _createInputEmailAdress(),
           Divider(),
            _createPassword(),
-
+          Divider(),
+          _createDateOfBirth(),
         ],
       ),
     );
@@ -114,5 +116,43 @@ class _PersonalScreenState extends State<PersonalScreen> {
         
       },
     ); 
+  }
+
+  Widget _createDateOfBirth() {
+    return TextField(
+      enableInteractiveSelection: false,
+      controller: _inputFieldDataController,
+      decoration: InputDecoration(
+        hintText: 'Data naixement', 
+        labelText: 'Data naixement',
+        suffixIcon: Icon(Icons.perm_contact_calendar),
+        icon: Icon(Icons.calendar_today),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(20.0)
+        ) 
+      ),
+      onTap: () {
+        FocusScope.of(context).requestFocus(new FocusNode());
+        _seleccionaData(context); 
+      },
+    ); 
+  }
+
+  void _seleccionaData(BuildContext context) async {
+
+    DateTime? picked = await showDatePicker(
+      context: context, 
+      // locale: Locale('es', 'Es'),
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2020),
+      lastDate: DateTime(2030)
+      ); 
+
+      if(picked != null ){
+        setState(() {
+          _dateOfBirth = picked.toString(); 
+          _inputFieldDataController.text = _dateOfBirth; 
+        });
+      }
   }
 }
