@@ -28,7 +28,10 @@ class _PersonalScreenState extends State<PersonalScreen> {
           _createInputFirstName(), 
           Divider(),
           _createInputLastName(), 
-
+          Divider(),
+          _createInputEmailAdress(),
+          Divider(),
+           _createPassword(),
 
         ],
       ),
@@ -70,6 +73,26 @@ class _PersonalScreenState extends State<PersonalScreen> {
       onChanged: (valor) {
         setState(() {
           _lastName = valor; 
+        });
+      },
+    ); 
+  }
+
+  Widget _createInputEmailAdress() {
+    return TextField(
+      keyboardType: TextInputType.emailAddress,
+      decoration: InputDecoration(
+        hintText: 'Email',
+        labelText: 'Email',
+        suffixIcon: Icon(Icons.alternate_email_outlined),
+        icon: Icon(Icons.email),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(20),
+        )
+      ),
+      onChanged: (valor) {
+        setState(() {
+          _emailAdress = valor; 
         });
       },
     ); 
