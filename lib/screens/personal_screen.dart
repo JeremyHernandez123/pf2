@@ -38,22 +38,7 @@ class _PersonalScreenState extends State<PersonalScreen> {
           _createDateOfBirth(),
           Divider(),
           SizedBox( height: 20),
-          ElevatedButton(
-            onPressed: () {
-              if(mounted){
-                Navigator.pop(
-                  context, 
-                  Persona(
-                    firstName: _firstName, 
-                    lastName: _lastName, 
-                    emailAdress: _emailAdress, 
-                    password: _password,
-                    dateOfBirth: DateTime.parse(_dateOfBirth.toString())
-                ));
-              }
-            }, 
-            child: Text('Guardar i tornar')
-          )
+          _botonGuardar() 
         ],
       ),
     );
@@ -175,5 +160,24 @@ class _PersonalScreenState extends State<PersonalScreen> {
           _inputFieldDataController.text = _dateOfBirth; 
         });
       }
+  }
+
+  Widget _botonGuardar() {
+    return ElevatedButton(
+      onPressed: () {
+        if(mounted){
+          Navigator.pop(
+            context, 
+            Persona(
+              firstName: _firstName, 
+              lastName: _lastName, 
+              emailAdress: _emailAdress, 
+              password: _password,
+              dateOfBirth: DateTime.parse(_dateOfBirth.toString())
+          ));
+        }
+      }, 
+      child: Text('Guardar i tornar')
+    ); 
   }
 }

@@ -40,7 +40,7 @@ class _HomePageState extends State<HomePage> {
                 MaterialPageRoute(builder: (context) => PersonalScreen())
               );
               setState(() {
-                // espera el return de la pagina de personal_screen 
+                
               });
             }, 
             child: Text('Edit Profile')
