@@ -14,6 +14,7 @@ class _PersonalScreenState extends State<PersonalScreen> {
   String _lastName = ""; 
   String _emailAdress = "" ; 
   String _dateOfBirth = "";  
+  String _password = "";
   final TextEditingController _inputFieldDataController = TextEditingController();
 
 
@@ -35,6 +36,24 @@ class _PersonalScreenState extends State<PersonalScreen> {
            _createPassword(),
           Divider(),
           _createDateOfBirth(),
+          Divider(),
+          SizedBox( height: 20),
+          ElevatedButton(
+            onPressed: () {
+              if(mounted){
+                Navigator.pop(
+                  context, 
+                  Persona(
+                    firstName: _firstName, 
+                    lastName: _lastName, 
+                    emailAdress: _emailAdress, 
+                    password: _password,
+                    dateOfBirth: DateTime.parse(_dateOfBirth.toString())
+                ));
+              }
+            }, 
+            child: Text('Guardar i tornar')
+          )
         ],
       ),
     );
@@ -113,7 +132,9 @@ class _PersonalScreenState extends State<PersonalScreen> {
         )     
       ),
       onChanged: (valor){
-        
+        setState(() {
+          _password = valor; 
+        });
       },
     ); 
   }
@@ -144,7 +165,7 @@ class _PersonalScreenState extends State<PersonalScreen> {
       context: context, 
       // locale: Locale('es', 'Es'),
       initialDate: DateTime.now(),
-      firstDate: DateTime(2020),
+      firstDate: DateTime(2000),
       lastDate: DateTime(2030)
       ); 
 
