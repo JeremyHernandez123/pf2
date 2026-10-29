@@ -56,6 +56,7 @@ class _HomePageState extends State<HomePage> {
             }, 
             child: Text('Edit Profile')
           ), 
+          SizedBox(height: 30),
           ElevatedButton(
             onPressed: (){
               Navigator.push(
