@@ -23,7 +23,4 @@ class Persona {
     );
   }
 
-  get fullName => '$firstName $lastName';
-  get formattedDateOfBirth => '${dateOfBirth.day}/${dateOfBirth.month}/${dateOfBirth.year}';
-
 }

@@ -11,11 +11,15 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  Persona _persona = Persona.defaults();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('DevProfile M3'),
+        title: Center(
+          child: Text('DevProfile M3'),
+        ),
       ),
       body: Center(
         child: _profileCard(context),
@@ -30,18 +34,22 @@ class _HomePageState extends State<HomePage> {
         mainAxisSize: MainAxisSize.min,
         children: [
           ListTile(
-            title: Text('${Persona.defaults().firstName} ${Persona.defaults().lastName} \n ${Persona.defaults().emailAdress} \n ${Persona.defaults().dateOfBirth}'),
+            title: Text(
+              '${_persona.firstName} ${_persona.lastName} '
+              '\n ${_persona.emailAdress} '
+              '\n ${_persona.dateOfBirth}'
+            ),
           ),
           SizedBox(height: 30),
           ElevatedButton(
-            onPressed: () {
-              final result = Navigator.push(
+            onPressed: () async {
+              final result = await Navigator.push<Persona>(
                 context,
-                MaterialPageRoute(builder: (context) => PersonalScreen())
+                MaterialPageRoute( builder: (context) => PersonalScreen(persona: _persona),)
               );
-              if(result != null && result is Persona) {
+              if (result != null) {
                 setState(() {
-                  
+                  _persona = result;
                 });
               }
               
@@ -55,7 +63,7 @@ class _HomePageState extends State<HomePage> {
                 MaterialPageRoute(builder: (context) => WidgetScreen(),)
               );
               setState(() {
-                // espera resposta de witget screen 
+                
               });
             }, 
             child: Text('Explore Witget Showcase')

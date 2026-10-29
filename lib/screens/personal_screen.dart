@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:pf2/models/Persona.dart';
 
 class PersonalScreen extends StatefulWidget {
-  const PersonalScreen({super.key});
+  final Persona persona;
+  const PersonalScreen({super.key, required this.persona});
 
   @override
   State<PersonalScreen> createState() => _PersonalScreenState();
@@ -10,19 +11,47 @@ class PersonalScreen extends StatefulWidget {
 
 class _PersonalScreenState extends State<PersonalScreen> {
   @override
-  String _firstName = ""; 
-  String _lastName = ""; 
-  String _emailAdress = "" ; 
-  String _dateOfBirth = "";  
-  String _password = "";
-  final TextEditingController _inputFieldDataController = TextEditingController();
+  late String _firstName; 
+  late String _lastName ; 
+  late String _emailAdress; 
+  late String _dateOfBirth;  
+  late String _password;
 
+  late final TextEditingController _firstNameController;
+  late final TextEditingController _lastNameController;
+  late final TextEditingController _emailController;
+  late final TextEditingController _inputFieldDataController;
+
+  @override
+  void initState() {
+    super.initState();
+    final p = widget.persona;
+    _firstName = p.firstName;
+    _lastName = p.lastName;
+    _emailAdress = p.emailAdress;
+    _password = p.password;
+    _dateOfBirth = DateTime.parse(p.dateOfBirth.toString()).toString();
+
+    _firstNameController = TextEditingController(text: p.firstName);
+    _lastNameController = TextEditingController(text: p.lastName);
+    _emailController = TextEditingController(text: p.emailAdress);
+    _inputFieldDataController = TextEditingController(text: p.dateOfBirth.toString());
+  }
+
+  @override
+  void dispose() {
+    _firstNameController.dispose();
+    _lastNameController.dispose();
+    _emailController.dispose();
+    _inputFieldDataController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('${Persona.defaults().lastName} - Edit Profile'),
+        title: Text('${widget.persona.lastName} - Edit Profile'),
       ),
       body: ListView(
         padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 200),
@@ -46,6 +75,7 @@ class _PersonalScreenState extends State<PersonalScreen> {
 
   Widget _createInputFirstName() {
     return TextField(
+      controller: _firstNameController,
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
         hintText: 'Nom',
@@ -66,6 +96,7 @@ class _PersonalScreenState extends State<PersonalScreen> {
 
   Widget _createInputLastName() {
     return TextField(
+      controller: _lastNameController,
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
         hintText: 'Cognom',
@@ -86,6 +117,7 @@ class _PersonalScreenState extends State<PersonalScreen> {
 
   Widget _createInputEmailAdress() {
     return TextField(
+      controller: _emailController,
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
         hintText: 'Email',
@@ -106,6 +138,7 @@ class _PersonalScreenState extends State<PersonalScreen> {
 
   Widget _createPassword() {
     return TextField(
+      controller: TextEditingController(text: _password),
       obscureText: true,
       decoration: InputDecoration(
         hintText: 'Password',
@@ -172,9 +205,9 @@ class _PersonalScreenState extends State<PersonalScreen> {
               firstName: _firstName, 
               lastName: _lastName, 
               emailAdress: _emailAdress, 
-              password: _password,
-              dateOfBirth: DateTime.parse(_dateOfBirth.toString())
-            ),
+              dateOfBirth: DateTime.parse(_dateOfBirth.toString()), 
+              password: _password
+          )
           );
         }
       }, 
