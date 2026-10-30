@@ -35,12 +35,15 @@ class _WidgetScreenState extends State<WidgetScreen> {
       children: [
         for (int i = 0; i < items.length; i++)
           ListTile(
-
             key: ValueKey(items[i]),
             title: Text(items[i]),
             leading: Icon(Icons.people),
-            trailing: Icon(Icons.list)
+            trailing: ReorderableDragStartListener(
+              index: i,
+              child: const Icon(Icons.list),
+            ),
           ),
+        
       ],
     ); 
   }
