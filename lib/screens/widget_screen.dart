@@ -30,7 +30,7 @@ class _WidgetScreenState extends State<WidgetScreen> {
         });
       },
       header: Center(
-       child: Text('Llista d\items'),
+       child: Text('Llista ditems'),
       ),
       children: [
         for (int i = 0; i < items.length; i++)
