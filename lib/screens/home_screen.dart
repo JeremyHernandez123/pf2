@@ -30,46 +30,49 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget _profileCard(BuildContext context) {
     return Card(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          ListTile(
-            title: Text(
-              '${_persona.firstName} ${_persona.lastName} '
-              '\n ${_persona.emailAdress} '
-              '\n ${_persona.dateOfBirth}'
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              title: Text(
+                '${_persona.firstName} ${_persona.lastName} '
+                '\n ${_persona.emailAdress} '
+                '\n ${_persona.dateOfBirth}'
+              ),
             ),
-          ),
-          SizedBox(height: 30),
-          ElevatedButton(
-            onPressed: () async {
-              final result = await Navigator.push<Persona>(
-                context,
-                MaterialPageRoute( builder: (context) => PersonalScreen(persona: _persona),)
-              );
-              if (result != null) {
-                setState(() {
-                  _persona = result;
-                });
-              }
-              
-            }, 
-            child: Text('Edit Profile')
-          ), 
-          SizedBox(height: 30),
-          ElevatedButton(
-            onPressed: (){
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => WidgetScreen(),)
-              );
-              setState(() {
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () async {
+                final result = await Navigator.push<Persona>(
+                  context,
+                  MaterialPageRoute( builder: (context) => PersonalScreen(persona: _persona),)
+                );
+                if (result != null) {
+                  setState(() {
+                    _persona = result;
+                  });
+                }
                 
-              });
-            }, 
-            child: Text('Explore Witget Showcase')
-          )
-        ],
+              }, 
+              child: Text('Edit Profile')
+            ), 
+            SizedBox(height: 30),
+            ElevatedButton(
+              onPressed: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => WidgetScreen(),)
+                );
+                setState(() {
+                  
+                });
+              }, 
+              child: Text('Explore Witget Showcase')
+            )
+          ],
+        ),
       ),
     ); 
   }
