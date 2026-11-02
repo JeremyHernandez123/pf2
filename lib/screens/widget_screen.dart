@@ -18,14 +18,17 @@ class _WidgetScreenState extends State<WidgetScreen> {
       appBar: AppBar(
         title: const Text('Widget Screen'),
       ),
-      body: Column(
-        children: [
-          expansibleWidget(),
-          SizedBox(height: 40),
-          Expanded(child: reorderableList()),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Column(
+          children: [
+            SizedBox(height: 20),
+            expansibleWidget(),
+            SizedBox(height: 40),
+            Expanded(child: reorderableList()),
+          ],
+        ),
       )
-
     );
   }
 
@@ -41,7 +44,7 @@ class _WidgetScreenState extends State<WidgetScreen> {
         });
       },
       header: Center(
-       child: Text('Llista ditems'),
+        child: Text('Llista d\'items'),
       ),
       children: [
         for (int i = 0; i < items.length; i++)
@@ -59,43 +62,61 @@ class _WidgetScreenState extends State<WidgetScreen> {
   }
 
   Widget expansibleWidget(){
-    return Expansible(
-      controller: _controller,
-      duration: Duration(milliseconds: 300),
-      curve: Curves.easeInOut,
-      expansibleBuilder: (context, header, body, animation) {
-        return Column(
-          children: [
-            header,
-            SizeTransition(
-              sizeFactor: animation,
-              axisAlignment: -1,
-              child: body,
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey),
+        borderRadius: BorderRadius.circular(12)
+      ),
+      child: Expansible(
+        controller: _controller,
+        duration: Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+        expansibleBuilder: (context, header, body, animation) {
+          return Column(
+            children: [
+              header,
+              SizeTransition(
+                sizeFactor: animation,
+                axisAlignment: -1,
+                child: body,
+              ),
+            ],
+          );
+        },
+        headerBuilder:  (context, animation){
+          return GestureDetector(
+            onTap: () {
+              _controller.isExpanded
+                  ? _controller.collapse()
+                  : _controller.expand();
+            },
+            child: const ListTile(
+              leading: Icon(Icons.list_alt),
+              title: Text('Lista expansible'),
+              trailing: Icon(Icons.expand_more),
             ),
-          ],
-        );
-      },
-      headerBuilder:  (context, animation){
-        return GestureDetector(
-          onTap: () {
-            _controller.isExpanded
-                ? _controller.collapse()
-                : _controller.expand();
-          },
-          child: const ListTile(
-            title: Text('Lista expansible'),
-            trailing: Icon(Icons.expand_more),
+          );
+        },
+        bodyBuilder: (context, animation) => const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            children: [
+              ListTile(
+                leading: Icon(Icons.insert_emoticon),
+                title: Text('Elemento A')),
+              ListTile(
+                leading: Icon(Icons.access_alarm),
+                title: Text('Elemento B')),
+              ListTile(
+                leading: Icon(Icons.baby_changing_station),
+                title: Text('Elemento C')),
+            ], 
           ),
-        );
-      },
-      bodyBuilder: (context, animation) => const Column(
-        children: [
-          ListTile(title: Text('Elemento A')),
-          ListTile(title: Text('Elemento B')),
-          ListTile(title: Text('Elemento C')),
-        ],
-      )
-    );  
+        )
+        
+      ) 
+    );
+    
   }
 }
 // Expansible widget 
